@@ -33,11 +33,11 @@ export default function login() {
                 <input className="loginInput" placeholder="TTN Username"/>
                 <input className="loginInput" placeholder="Password"/>
                 <div className="checkbox">
-                  <div className="rememberMe">
+                  <span className="rememberMe">
                     <input type="checkbox" id="checkbox" name="identity" value="rememberMee"/>
                     <label htmlFor="identity">Remember&nbsp;Me</label>
-                  </div>
-                 <span className="loginforgot">Forgot Password?</span>
+                  </span>
+                 <div className="loginforgot">Forgot Password?</div>
                 </div>
                 <button className="loginButton">Sign In</button>
             </div>

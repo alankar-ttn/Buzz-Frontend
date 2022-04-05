@@ -60,15 +60,23 @@ input{
     margin: 8px 0; 
 }
 
-/* .rememberMe{
+input[type=checkbox] {
+    width: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.rememberMe{
+    width: 50%;
     display: flex;
-} */
+    gap: 10px;
+}
 
 .checkbox{
     display: flex;
     justify-content: space-between;
     padding-top: 20px;
-    width: 90%;
+    width: 100%;
     font-size: smaller;
     color: gray;
     font-weight: 600;
