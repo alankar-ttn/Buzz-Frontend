@@ -2,7 +2,22 @@ import React from 'react'
 import './login.css';
 import logo from '../../images/Company-Logo/To-The-New-Logo.png'
 
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+
+const provider = new GoogleAuthProvider();
+
+const handleGoogleSignIn  = () => {
+  const auth = getAuth();
+
+  signInWithPopup(auth, provider)
+  .then(result => {
+    const user = result.user;
+    console.log(user);
+  })
+}
+
 export default function login() {
+
   return (
     <div className="login">
       <div className="loginBox">
@@ -10,7 +25,7 @@ export default function login() {
               <div className="companyLogo"><img src={logo} alt="" /></div>
                <h4 className="loginDesc1">Enter your details and Start your journey with us</h4>
                    <span className="loginDesc2">Don't stop until you're proud</span>
-               <button className="buttonGoogle">Sign in with Google</button>
+               <button className="buttonGoogle" onClick={handleGoogleSignIn}>Sign in with Google</button>
           </div>
           <div className="loginRightBox">
             <div className="loginBox2">
@@ -20,7 +35,7 @@ export default function login() {
                 <div className="checkbox">
                   <div className="rememberMe">
                     <input type="checkbox" id="checkbox" name="identity" value="rememberMee"/>
-                    <label for="identity">Remember&nbsp;Me</label>
+                    <label htmlFor="identity">Remember&nbsp;Me</label>
                   </div>
                  <span className="loginforgot">Forgot Password?</span>
                 </div>
