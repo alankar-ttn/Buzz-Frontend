@@ -17,9 +17,13 @@ export default function login() {
               <h3 className="head">Login To Your Account</h3>
                 <input className="loginInput" placeholder="TTN Username"/>
                 <input className="loginInput" placeholder="Password"/>
-                <input type="checkbox" id="checkbox" name="identity" value="Bike"/>
-                <label for="identity">Remember Me</label>
-                <span className="loginforgot">Forgot Password?</span>
+                <div className="checkbox">
+                  <div className="rememberMe">
+                    <input type="checkbox" id="checkbox" name="identity" value="rememberMee"/>
+                    <label for="identity">Remember&nbsp;Me</label>
+                  </div>
+                 <span className="loginforgot">Forgot Password?</span>
+                </div>
                 <button className="loginButton">Sign In</button>
             </div>
           </div>

@@ -20,7 +20,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px 60px 20px 60px;
+    padding: 60px 60px 60px 60px;
 }
 
 .loginDesc1{
@@ -45,19 +45,34 @@
     position: absolute;
 }
 
-input{
-    width: 100%;
-    overflow: hidden;
-    font-size: 18px;
-    padding: 8px 0;
-    margin: 8px 0;
+.loginInput{
+    border: none;
+    background: none;
+    outline: none;
     border-bottom: 1px solid gray;
 }
 
-.loginInput{
-    border: none;
-    outline: none;
-    background: none;
+input{
+    width: 100%;
+    overflow: hidden;
+    font-size: 16px;
+    padding: 8px 0;
+    margin: 8px 0; 
+}
+
+/* .rememberMe{
+    display: flex;
+} */
+
+.checkbox{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 20px;
+    width: 90%;
+    font-size: smaller;
+    color: gray;
+    font-weight: 600;
+    padding-bottom: 25px;
 }
 
 .head{
@@ -76,7 +91,13 @@ input{
 }
 
 .loginButton{
-    max-width: 30%;
+    max-width: 70%;
+    background-color: blueviolet;
+    color: #fff;
+    font-weight: bold;
+    border: 2px blueviolet solid;
+    border-radius: 20px;
+    padding: 10px 10px 10px 10px;
 }
 
 img{
