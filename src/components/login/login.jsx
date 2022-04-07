@@ -3,16 +3,24 @@ import './login.css';
 import logo from '../../images/Company-Logo/To-The-New-Logo.png'
 
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import axios from 'axios';
 
 const provider = new GoogleAuthProvider();
 
-const handleGoogleSignIn  = () => {
+const handleGoogleSignIn  = async () => {
   const auth = getAuth();
 
-  signInWithPopup(auth, provider)
-  .then(result => {
+  await signInWithPopup(auth, provider)
+  .then(async (result) => {
     const user = result.user;
-    console.log(user);
+    console.log(user)
+    await axios.post("http://127.0.0.1:5000/api/auth/register/google", {
+      email: user.email,
+      firstName: user.displayName.split(" ")[0],
+      lastName: user.displayName.split(" ")[1],
+      uid: user.uid
+    }).then(res => console.log(res))
+    .catch(err => console.log(err.response))
   })
 }
 
