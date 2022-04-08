@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Feeds from "../../components/Feed/Feeds";
 import Login from "../../components/Login/Login";
+import Profile from "../../components/Porfile/Profile";
 import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
@@ -11,6 +12,7 @@ const Router = () => {
 			<Route path="/" element={<PrivateRoute />}>
 				<Route path="/" element={<Feeds />} />
 			</Route>
+			<Route path="/profile" element={<Profile />} />
 		</Routes>
 	);
 };
