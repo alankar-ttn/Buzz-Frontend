@@ -1,13 +1,16 @@
-import Login from './components/login/login';
-import initializeAuthentication from './Firebase/firebase.init';
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./config/context/AuthContext";
+import Router from "./config/routes/Router";
+import "./index.css";
 
-initializeAuthentication();
 function App() {
-  return (
-    <>
-      <Login/>
-    </>
-  );
+	return (
+		<BrowserRouter>
+			<AuthProvider>
+				<Router />
+			</AuthProvider>
+		</BrowserRouter>
+	);
 }
 
 export default App;
