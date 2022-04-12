@@ -1,10 +1,16 @@
-import React from 'react'
-import "./Profile.css"
+import React from "react";
+import Header from "../Header/Header";
+import "./Profile.css";
 
 const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
-}
+	return (
+		<>
+			<Header />
+			<div className="container">
+        
+      </div>
+		</>
+	);
+};
 
-export default Profile
+export default Profile;
