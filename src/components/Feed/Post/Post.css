@@ -188,3 +188,56 @@
 .post__commentForm input:focus {
     outline: 1px solid #919090;
 }
+
+.comment {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 0.8rem;
+}
+
+.comment__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	gap: 0.6rem;
+}
+
+.comment__header img {
+	border-radius: 50%;
+	height: 40px;
+	width: 40px;
+}
+
+.comment__headerInfo {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.comment__headerInfoName {
+	font-size: 1.2rem;
+	font-weight: 600;
+	color: #000;
+	margin-bottom: 0;
+}
+
+.comment__headerInfoTime {
+	font-size: 0.9rem;
+	font-weight: 400;
+	color: #000;
+	margin-bottom: 0;
+	margin-left: 5px;
+}
+
+.comment__headerInfoText {
+	font-size: 1rem;
+	font-weight: 400;
+	color: #000;
+	margin-bottom: 0;
+}
+
+.dropdown-toggle::after {
+	display: none!important;
+}
