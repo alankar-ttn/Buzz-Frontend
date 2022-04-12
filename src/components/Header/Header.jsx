@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import useAuth from "../../config/context/AuthContext";
 import "./Header.css";
 
@@ -16,7 +17,7 @@ const Header = () => {
 					<p>{user.displayName}</p>
 				</div>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a className="dropdown-item" href="#">Profile</a></li>
+                    <li><Link to="/profile" className="dropdown-item" href="#">Profile</Link></li>
                     <li><hr className="dropdown-divider" /></li>
                     <li><a className="dropdown-item" onClick={() => logout()}>Logout</a></li>
                 </ul>
