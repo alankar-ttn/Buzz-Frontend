@@ -5,23 +5,23 @@ const Profile = () => {
   return (
     <>
     <div className="container">
-      <img src={coverimage} alt="image" />
+      <img src={coverimage} className='img-thumbnail' alt="image" /><hr />
       <h2>sarah wood</h2>
     </div>
-    <hr />
+    
     <div class="container">
       <form  class= "form-inline" action="">
-          <div className="form-group row">
-            <div class="col-md-2">
+          <div className="row">
+            <div class="col-md-6">
               <label for="FirstNAme">FirstName</label>
               <input class="form-control" id="FirstNAme" type="text" placeholder='First Name' /> </div>
-            <div class="col-md-2">
+            <div class="col-md-6">
               <label htmlFor="LastName">LastName</label>
               <input class="form-control" type="text" name='LastName' id='LastName' placeholder='Last Name'/>
             </div>
           </div>
-          <div className="form-group row">
-            <div className='col-md-2'>
+          <div className=" row">
+            <div className='col-md-6'>
               <label htmlFor="Designation">Designation</label>
               <select className='form-select' name="Designation" id="Designation">
                 <option value="MEAN Developer">MEAN Developer</option>
@@ -29,13 +29,13 @@ const Profile = () => {
                 <option value="other">other</option>
               </select>
             </div>
-            <div className='col-md-2'>
+            <div className='col-md-6'>
               <label htmlFor="My Website">My Website</label>
               <input class="form-control" type="text" name='My Website' id='My Website' placeholder='website.org'/>
             </div>
           </div>
-          <div className="form-group row">
-            <div className='col-md-2'>
+          <div className=" row">
+            <div className='col-md-6'>
               <label for="Gender">Gender</label>
               <select className='form-select' name="Gender" id="Gender">
                 <option value="male">Male</option>
@@ -43,18 +43,18 @@ const Profile = () => {
                 <option value="other">other</option>
               </select>
             </div>
-            <div className='col-md-2'>
+            <div className='col-md-6'>
               <label for="Birthday">Birthday</label>
               <input class="form-control" type="date" name="Birthday" id="Birthday" />
             </div>
           </div>
-          <div className="form-group row">
-            <div className='col-md-2'>
+          <div className=" row">
+            <div className='col-md-6'>
               <label htmlFor="City">City</label>
               <input class="form-control" type="text" name='City' id='City' />
             </div>
 
-            <div className='col-md-1'>
+            <div className='col-md-3'>
               <label for="State">State</label>
               <select className='form-select' name="State" id="State">
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
@@ -96,7 +96,7 @@ const Profile = () => {
               </select>
             </div>
 
-            <div className='col-md-1'>
+            <div className='col-md-3'>
               <label htmlFor="Zip">Zip</label>
               <input class="form-control" type="number" maxLength={6} placeholder='201310' />
             </div>
