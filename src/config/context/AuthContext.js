@@ -105,8 +105,9 @@ export const AuthProvider = ({ children }) => {
 			getPosts,
 			posts,
 			userData,
+			setUserData,
 		}),
-		[user, loading, posts, userData]
+		[user, loading, posts, userData, setUserData]
 	);
 
 	return (
