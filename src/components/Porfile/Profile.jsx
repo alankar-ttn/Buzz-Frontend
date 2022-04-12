@@ -14,10 +14,10 @@ const Profile = () => {
       <form  class= "form-inline" action="">
           <div className="row">
             <div class="col-md-6">
-              <label for="FirstNAme">FirstName</label>
+              <label for="FirstNAme">First Name</label>
               <input class="form-control" id="FirstNAme" type="text" placeholder='First Name' /> </div>
             <div class="col-md-6">
-              <label htmlFor="LastName">LastName</label>
+              <label htmlFor="LastName">Last Name</label>
               <input class="form-control" type="text" name='LastName' id='LastName' placeholder='Last Name'/>
             </div>
           </div>
