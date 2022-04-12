@@ -4,6 +4,8 @@ import useAuth from "../../config/context/AuthContext";
 import Header from "../Header/Header";
 import Post from "./Post/Post";
 import PostForm from "./PostForm/PostForm";
+import Sidebar from "./Sidebar/Sidebar";
+import Rightbar from "./Rightbar/Rightbar";
 
 const Feeds = () => {
 	const { posts, getPosts } = useAuth();
@@ -18,11 +20,14 @@ const Feeds = () => {
 			<div
 				style={{
 					display: "flex",
-					justifyContent: "sapce-between",
-					alignItems: "center",
+					gap: "20px",
+					justifyContent: "space-between",
+					alignItems: "flex-start",
 				}}
 			>
-				<div style={{ flex: 1 }}></div>
+				<div style={{ flex: 1, marginLeft: "10px" }}>
+					<Sidebar />
+				</div>
 				<div style={{ flex: 2 }}>
 					<div
 						style={{
@@ -41,7 +46,10 @@ const Feeds = () => {
 						))}
 					</div>
 				</div>
-				<div style={{ flex: 1 }}></div>
+
+				<div style={{ flex: 1, marginRight: "10px" }}>
+					<Rightbar />
+				</div>
 			</div>
 		</>
 	);
