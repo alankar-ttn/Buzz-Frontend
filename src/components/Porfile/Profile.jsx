@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Profile.css"
 import coverimage from './pexels.jpg'
+import Footer from '../Footer/Footer'
 const Profile = () => {
   return (
     <>
@@ -108,7 +109,9 @@ const Profile = () => {
             </div>
           
         </form>
-      </div></>
+      </div>
+      <Footer />
+      </>
   )
 }
 
