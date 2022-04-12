@@ -44,12 +44,12 @@ const Profile = () => {
 			)
 			.then((res) => {
 				console.log(res);
-        setUserData(res.data)
-        toast.success("user profile updated successfully")
+				setUserData(res.data);
+				toast.success("user profile updated successfully");
 			})
 			.catch((err) => {
 				console.log(err);
-        toast.error("something went wrong")
+				toast.error("something went wrong");
 			});
 	};
 
@@ -237,10 +237,13 @@ const Profile = () => {
 						</div>
 					</div>
 					<div className="container">
-						<button type="submit" onClick={(e)=>userUpdateProfile(e)} class="btn btn-primary me-5">
+						<button
+							type="submit"
+							onClick={(e) => userUpdateProfile(e)}
+							class="btn btn-primary me-5"
+						>
 							Save
 						</button>
-
 					</div>
 				</form>
 			</div>
