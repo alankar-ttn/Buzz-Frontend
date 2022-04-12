@@ -1,58 +1,62 @@
 import React from 'react'
 import "./Profile.css"
-<><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script></>
-
+import coverimage from './pexels.jpg'
 const Profile = () => {
   return (
     <>
     <div className="container">
-      <img src="/home/amit/Buzz-Frontend/src/components/Porfile/pexels.jpg" alt="image" />
+      <img src={coverimage} alt="image" />
       <h2>sarah wood</h2>
     </div>
     <hr />
     <div class="container">
       <form  class= "form-inline" action="">
           <div className="form-group row">
-            <div class="col-xs-2">
+            <div class="col-md-2">
               <label for="FirstNAme">FirstName</label>
-              <input class="form-control" id="FirstNAme" type="text" placeholder='First Name' />
+              <input class="form-control" id="FirstNAme" type="text" placeholder='First Name' /> </div>
+            <div class="col-md-2">
               <label htmlFor="LastName">LastName</label>
               <input class="form-control" type="text" name='LastName' id='LastName' placeholder='Last Name'/>
             </div>
-            <div className='col-xs-2'>
-              </div>
-            <div className='col-xs-2'>
+          </div>
+          <div className="form-group row">
+            <div className='col-md-2'>
               <label htmlFor="Designation">Designation</label>
-              <select name="Designation" id="Designation">
+              <select className='form-select' name="Designation" id="Designation">
                 <option value="MEAN Developer">MEAN Developer</option>
                 <option value="DevOps engineer">DevOps engineer</option>
                 <option value="other">other</option>
               </select>
             </div>
-            <div className='col-xs-2'>
+            <div className='col-md-2'>
               <label htmlFor="My Website">My Website</label>
               <input class="form-control" type="text" name='My Website' id='My Website' placeholder='website.org'/>
             </div>
-            <div className='col-xs-2'>
-              <label for="Sex">Sex</label>
-              <select name="Sex" id="Sex">
+          </div>
+          <div className="form-group row">
+            <div className='col-md-2'>
+              <label for="Gender">Gender</label>
+              <select className='form-select' name="Gender" id="Gender">
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">other</option>
               </select>
             </div>
-            <div className='col-xs-2'>
+            <div className='col-md-2'>
               <label for="Birthday">Birthday</label>
               <input class="form-control" type="date" name="Birthday" id="Birthday" />
             </div>
-            <div className='col-xs-2'>
+          </div>
+          <div className="form-group row">
+            <div className='col-md-2'>
               <label htmlFor="City">City</label>
               <input class="form-control" type="text" name='City' id='City' />
             </div>
-            <div className='col-xs-2'>
+
+            <div className='col-md-1'>
               <label for="State">State</label>
-              <select name="State" id="State">
+              <select className='form-select' name="State" id="State">
                 <option value="Andhra Pradesh">Andhra Pradesh</option>
                 <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
                 <option value="Arunachal Pradesh">Arunachal Pradesh</option>
@@ -91,15 +95,18 @@ const Profile = () => {
                 <option value="West Bengal">West Bengal</option>
               </select>
             </div>
-            <div >
-              <label htmlFor="Pincode">Pincode</label>
-              <input class="form-control" type="number" maxLength={6} />
+
+            <div className='col-md-1'>
+              <label htmlFor="Zip">Zip</label>
+              <input class="form-control" type="number" maxLength={6} placeholder='201310' />
             </div>
-            <div>
-              <button type="submit" class="btn btn-primary">Save</button>
-              <button type="reset">Reset All</button>
             </div>
-          </div>
+            <div className='container'>
+              <button  type="submit" class="btn btn-primary me-5" >Save</button>
+              
+              <button className='btn btn btn-outline-primary' type="reset">Reset All</button>
+            </div>
+          
         </form>
       </div></>
   )
