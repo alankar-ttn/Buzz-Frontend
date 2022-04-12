@@ -7,44 +7,44 @@ import { IoIosArrowDown } from "react-icons/io";
 import useAuth from "../../../config/context/AuthContext";
 
 export default function Sidebar() {
-	const { user } = useAuth();
+	const { userData } = useAuth();
 
 	return (
 		<>
 			<div className="sidebar">
 				<div className="profile">
-					<div className="profileRight">
+					<div className="profileRight"> 
 						<div className="profileRightTop">
 							<div className="profileCover">
 								<img
-									classname="coverImage"
+									className="coverImage"
 									src={cover}
 									alt=""
 								/>
 								<img
-									classname="userImage"
-									src={user.photoURL}
+									className="userImage"
+									src={userData.profileImage}
 									alt=""
 								/>
 							</div>
 							<div className="profileInfo">
-								<h4 className="profileInfoName">XYZ</h4>
+								<h4 className="profileInfoName">{`${userData.firstName} ${userData.lastName}`}</h4>
 								<span className="profileInfoDesc">
 									Newly Recruit at TTN
 								</span>
 							</div>
 						</div>
 						<div className="profileRightBottom">
-                            <div className="postViews">
-                                <h6 className="postNumber">234</h6>
-                                <span className="postText">Posts Views</span>
-                            </div>
-                            <div className="vl"></div>
-                            <div className="post">
-                                <h6 className="postNumber">16</h6>
-                                <span className="postText">Post</span>
-                            </div>
-                        </div>
+							<div className="postViews">
+								<h6 className="postNumber">234</h6>
+								<span className="postText">Profile Views</span>
+							</div>
+							<div className="vl"></div>
+							<div className="post">
+								<h6 className="postNumber">16</h6>
+								<span className="postText">Post</span>
+							</div>
+						</div>
 					</div>
 				</div>
 				<div className="sidebarWrapper">
