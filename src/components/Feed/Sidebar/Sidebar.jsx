@@ -23,12 +23,12 @@ export default function Sidebar() {
 								/>
 								<img
 									className="userImage"
-									src={userData.profileImage}
+									src={userData?.profileImage}
 									alt=""
 								/>
 							</div>
 							<div className="profileInfo">
-								<h4 className="profileInfoName">{`${userData.firstName} ${userData.lastName}`}</h4>
+								<h4 className="profileInfoName">{`${userData?.firstName} ${userData?.lastName}`}</h4>
 								<span className="profileInfoDesc">
 									{userData?.designation}
 								</span>
