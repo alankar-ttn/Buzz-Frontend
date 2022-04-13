@@ -66,6 +66,12 @@ export default function ViewProfile() {
 									<HiUserAdd className="viewProfileIcon" />
 									Add Friend
 								</button>
+								
+								<button className="friendAddedButton">
+									<FaUserFriends className="friendNowIcon"/>
+										Friends
+								</button>
+
 								{user.website !== "" && (
 									<a href={user.website} target="_blank">
 										<button className="visitWebsiteButton">
