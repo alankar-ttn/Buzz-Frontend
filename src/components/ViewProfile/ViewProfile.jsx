@@ -9,10 +9,14 @@ import { auth } from "../../config/Firebase/Firebase";
 import Header from "../Header/Header";
 import cover from "../../static/images/cover-picture.jpeg";
 import { GLOBAL_URL } from "../../config/global/contant";
+import { FaUserFriends } from "react-icons/fa";
+import useAuth from "../../config/context/AuthContext";
 
 export default function ViewProfile() {
 	const [user, setUser] = useState({});
 	const { id } = useParams();
+	const { userData } = useAuth();
+	const [reload, setReload] = useState(false);
 
 	useEffect(() => {
 		const getUser = async () => {
@@ -32,7 +36,54 @@ export default function ViewProfile() {
 				});
 		};
 		getUser();
-	}, []);
+	}, [reload]);
+
+	const sendFriendRequest = async () => {
+		const token = await auth.currentUser.getIdToken();
+		await axios
+			.put(
+				`${GLOBAL_URL}/api/auth/${id}/sendFriendRequest`,
+				{
+					userId: userData._id,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res.data);
+				setReload(!reload);
+			})
+			.catch((err) => {
+				console.log(err.response);
+			});
+	};
+
+	const acceptFriendRequest = async () => {
+		const token = await auth.currentUser.getIdToken();
+		await axios
+			.put(
+				`${GLOBAL_URL}/api/auth/${id}/acceptFriendRequest`,
+				{
+					userId: userData._id,
+				},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				console.log(res.data);
+				setReload(!reload);
+			})
+			.catch((err) => {
+				console.log(err.response);
+			});
+	};
+
 	return (
 		<>
 			<Header />
@@ -63,10 +114,45 @@ export default function ViewProfile() {
 								</span>
 							</div>
 							<div className="profileRightBottom1">
-								<button className="addFriendButton">
-									<HiUserAdd className="viewProfileIcon" />
-									Add Friend
-								</button>
+								{!user.friendRequestsReceived?.includes(
+									userData._id
+								) &&
+									!user.friendRequestsSent?.includes(
+										userData._id
+									) && !user.friends?.includes(userData._id) && (
+										<button
+											className="addFriendButton"
+											onClick={() => sendFriendRequest()}
+										>
+											<HiUserAdd className="viewProfileIcon" />
+											Add Friend
+										</button>
+									)}
+								{user.friendRequestsReceived?.includes(
+									userData._id
+								) && (
+									<button className="sendFriendRequest">
+										<IoIosSend className="viewProfileIcon" />
+										Request Sent
+									</button>
+								)}
+								{user.friendRequestsSent?.includes(
+									userData._id
+								) && (
+									<button
+										className="deleteFriendRequest"
+										onClick={() => acceptFriendRequest()}
+									>
+										<AiFillDelete className="viewProfileIcon" />
+										Accept Request
+									</button>
+								)}
+								{user.friends?.includes(userData._id) && (
+									<button className="friendAddedButton">
+										<FaUserFriends className="friendNowIcon" />
+										Friends
+									</button>
+								)}
 								{user.website !== "" && (
 									<a href={user.website} target="_blank">
 										<button className="visitWebsiteButton">
@@ -75,14 +161,6 @@ export default function ViewProfile() {
 										</button>
 									</a>
 								)}
-								<button className="sendFriendRequest">
-									<IoIosSend className="viewProfileIcon" />
-									Sent Request
-								</button>
-								<button className="deleteFriendRequest">
-									<AiFillDelete className="viewProfileIcon" />
-									Delete Request
-								</button>
 							</div>
 						</div>
 					</div>

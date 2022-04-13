@@ -38,8 +38,8 @@
 
 .rightbarProfileImg {
 	border-radius: 50%;
-	height: 50px;
-	width: 50px;
+	height: 40px;
+	width: 40px;
 }
 
 .rightbarContactList {
@@ -59,4 +59,13 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+}
+
+.rightbarContact, .rightbarButton {
+    border-radius: 10px;
+    background-color: rgb(240, 245, 245);
+}
+
+.rightbarContact:hover, .rightbarContact:hover .rightbarButton {
+    background-color: rgb(206, 231, 253);
 }

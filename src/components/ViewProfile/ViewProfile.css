@@ -31,6 +31,9 @@
 
 .profileRightBottom1 {
 	margin-top: 10px;
+	display: flex;
+	align-items: center;
+	gap: 20px;
 }
 
 .addFriendButton {
@@ -79,4 +82,20 @@
 .viewProfileIcon {
 	font-size: 18px;
 	margin-right: 5px;
+}
+
+.friendNowIcon {
+	font-size: 18px;
+	margin-right: 5px;
+}
+
+.friendAddedButton {
+	background-color: #2471a5;
+	color: #fff;
+	border: 1px #2e86c1 solid;
+	border-radius: 3px;
+	font-size: small;
+	font-weight: bold;
+	padding: 8px 8px 8px 8px;
+	margin-right: 15px;
 }
