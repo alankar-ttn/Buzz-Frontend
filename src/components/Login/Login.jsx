@@ -38,7 +38,7 @@ const Login = () => {
 						Sign in with Google
 					</button>
 				</div>
-				<div className="loginRightBox">
+				{/* <div className="loginRightBox">
 					<div className="loginBox2">
 						<h3 className="head">Login To Your Account</h3>
 						<input
@@ -62,7 +62,7 @@ const Login = () => {
 						</div>
 						<button className="loginButton">Sign In</button>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
