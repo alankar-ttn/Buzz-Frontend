@@ -1,3 +1,3 @@
-const GLOBAL_URL = "tps://buzzz-aaa.herokuapp.com";
+const GLOBAL_URL = "https://buzzz-aaa.herokuapp.com";
 
 export { GLOBAL_URL };
