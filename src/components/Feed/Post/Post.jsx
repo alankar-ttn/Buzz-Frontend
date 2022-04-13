@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
-import { FaEllipsisH, FaThumbsUp, FaHeartBroken, FaFlag } from "react-icons/fa";
+import { FaEllipsisH, FaThumbsUp, FaHeartBroken, FaFlag, FaCommentDots } from "react-icons/fa";
 import axios from "axios";
 import useAuth from "../../../config/context/AuthContext";
 
@@ -122,7 +122,19 @@ const Post = ({ post }) => {
 						</div>
 					</div>
 					<div className="post__footerDescRight">
-						<div>{post.comments.length} comments</div>
+						<div>
+							<span className="post__footerCommentIcon">
+								<FaCommentDots
+								color="#fff"
+								size="15px"
+								style={{
+									width: "20px",
+								}}
+								/>
+							</span>
+							{post.comments.length}
+							comments
+						</div>
 					</div>
 				</div>
 				<div className="post__footerActions">
