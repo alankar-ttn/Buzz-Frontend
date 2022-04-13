@@ -13,6 +13,7 @@ import React, {
 	useState,
 } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { auth } from "../Firebase/Firebase";
 
 const AuthContext = createContext({});
@@ -65,10 +66,15 @@ export const AuthProvider = ({ children }) => {
 					profileImage: user.photoURL,
 				})
 				.then((res) => {
-					console.log(res);
+					console.log("respomse",res.data);
 					navigation("/");
 				})
-				.catch((err) => console.log(err.response));
+				.catch((err) => {
+					toast.error("You can only login using TTN Email Id...")
+					setUser(null);
+					setUserData(null);
+					console.log("error", err.response)}
+				);
 		});
 	};
 
