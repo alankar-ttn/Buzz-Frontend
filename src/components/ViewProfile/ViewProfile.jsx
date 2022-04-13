@@ -1,53 +1,66 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./ViewProfile.css";
 import { HiUserAdd } from "react-icons/hi";
 import { AiOutlineSelect } from "react-icons/ai";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { auth } from "../../config/Firebase/Firebase";
+import Header from "../Header/Header";
+import cover from "../../static/images/cover-picture.jpeg";
 
 export default function ViewProfile() {
+    const [ user, setUser ] = useState({});
+    const {id} = useParams();
+
+    useEffect(()=>{
+        const getUser=async()=>{
+            const token = await auth.currentUser.getIdToken();
+            await axios.get(`http://127.0.0.1:5000/api/auth/${id}/profile`,{
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                }
+            }).then(res=>{
+                setUser(res.data)
+                console.log(res.data)
+            }).catch(err=>{
+                console.log(err.response)
+            })
+        }
+        getUser();
+    },[])
 	return (
 		<>
+        <Header/>
 			<div className="viewProfile">
 				<div className="profile">
 					<div className="profileRight">
 						<div className="profileRightTop">
 							<div className="profileCover">
-								<img className="coverImage" src="" alt="" />
-								<img className="userImage" src="" alt="" />
+								<img className="coverImage" src={cover} alt="" style={{height:"300px"}}/>
+								<img className="userImage" src={user.profileImage} alt="" style={{height:"120px",width:"120px"}}/>
 							</div>
 						</div>
 						<div className="forMargin">
 							<div className="profileInfo1">
-								<h4 className="profileInfoName1">Sarah Wood</h4>
+								<h4 className="profileInfoName1">{`${user.firstName} ${user.lastName}`}</h4>
 								<span className="profileInfoDesc1">
-									Sarah Wood is co-founder and COD of video ad
-									tech company.
+                                {`${user.firstName} ${user.lastName} is a ${user.designation}`}
 								</span>
-							</div>
-							<div className="viewProfileWrapper">
-								<ul className="viewProfileList">
-									<li className="viewProfileListItem">
-										London
-									</li>
-									<li className="viewProfileListItem">
-										England
-									</li>
-									<li className="viewProfileListItem">
-										United Kingdom
-									</li>
-									<li className="viewProfileListItem">
-										234 friends
-									</li>
-								</ul>
 							</div>
 							<div className="profileRightBottom1">
 								<button className="addFriendButton">
 									<HiUserAdd className="viewProfileIcon" />
 									Add Friend
 								</button>
-								<button className="visitWebsiteButton">
+                                {user.website!=="" && (
+                                    <a href={user.website} target="_blank">
+                                    <button className="visitWebsiteButton">
 									<AiOutlineSelect className="viewProfileIcon" />
 									Visit Website
 								</button>
+                                </a>
+                                )}
+								
 							</div>
 						</div>
 					</div>
