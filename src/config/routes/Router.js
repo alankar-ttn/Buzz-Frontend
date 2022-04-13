@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import Feeds from "../../components/Feed/Feeds";
 import Login from "../../components/Login/Login";
 import Profile from "../../components/Porfile/Profile";
+import ViewProfile from "../../components/ViewProfile/ViewProfile";
 import PrivateRoute from "./PrivateRoute";
 
 const Router = () => {
@@ -13,6 +14,7 @@ const Router = () => {
 				<Route path="/" element={<Feeds />} />
 			</Route>
 			<Route path="/profile" element={<Profile />} />
+			<Route path="/viewprofile" element={<ViewProfile />} />
 		</Routes>
 	);
 };

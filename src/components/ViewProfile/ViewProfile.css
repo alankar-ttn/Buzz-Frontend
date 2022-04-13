@@ -1,0 +1,11 @@
+.viewProfile{
+    display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+    gap:30px;
+	height: 100%;
+	padding: 0.8rem;
+	transition: all 0.2s ease-in-out;
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
