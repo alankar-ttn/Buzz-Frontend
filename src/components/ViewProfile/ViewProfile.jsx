@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./ViewProfile.css";
 import { HiUserAdd } from "react-icons/hi";
-import { AiOutlineSelect } from "react-icons/ai";
+import { AiOutlineSelect,FaUserFriends } from "react-icons/ai";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { auth } from "../../config/Firebase/Firebase";
