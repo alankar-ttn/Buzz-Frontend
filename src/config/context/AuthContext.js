@@ -22,15 +22,30 @@ export const AuthProvider = ({ children }) => {
 	const [loading, setLoading] = useState(false);
 	const [loadingInitial, setLoadingInitial] = useState(true);
 	const [posts, setPosts] = useState([]);
+	const [userData, setUserData] = useState(null);
 
 	const navigation = useNavigate();
 
 	useEffect(() => {
-		onAuthStateChanged(auth, (user) => {
+		onAuthStateChanged(auth, async (user) => {
 			if (user) {
 				setUser(user);
+				const getUserData = async () => {
+					const token = await auth.currentUser.getIdToken();
+					await axios
+						.get(`http://127.0.0.1:5000/api/auth/profile`, {
+							headers: {
+								Authorization: `Bearer ${token}`,
+							},
+						})
+						.then((res) => {
+							setUserData(res.data);
+						});
+				};
+				await getUserData();
 			} else {
 				setUser(null);
+				setUserData(null);
 			}
 			setLoadingInitial(false);
 		});
@@ -89,8 +104,10 @@ export const AuthProvider = ({ children }) => {
 			logout,
 			getPosts,
 			posts,
+			userData,
+			setUserData,
 		}),
-		[user, loading, posts]
+		[user, loading, posts, userData, setUserData]
 	);
 
 	return (
