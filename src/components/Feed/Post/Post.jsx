@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
-import { FaEllipsisH, FaThumbsUp, FaHeartBroken, FaFlag } from "react-icons/fa";
+import { FaEllipsisH, FaThumbsUp, FaHeartBroken, FaFlag, FaCommentDots } from "react-icons/fa";
 import axios from "axios";
 import useAuth from "../../../config/context/AuthContext";
 import { auth } from "../../../config/Firebase/Firebase";
@@ -229,12 +229,19 @@ const Post = ({ post }) => {
 							{post.dislikes.length}
 						</div>
 					</div>
-					<div
-						className="post__footerDescRight"
-						data-bs-toggle="modal"
-						data-bs-target={`#commentModal${post._id}`}
-					>
-						<div>{post.comments.length} comments</div>
+					<div className="post__footerDescRight">
+						<div>
+							<span className="post__footerCommentIcon">
+								<FaCommentDots
+									color="#fff"
+									size="15px"
+									style={{
+										width: "20px",
+									}}
+								/>
+							</span>
+							{post.comments.length}
+						</div>
 					</div>
 				</div>
 				<div className="post__footerActions">
