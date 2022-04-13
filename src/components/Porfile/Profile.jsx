@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import coverimage from "./pexels.jpg";
-import Header from "../Header/Header"
+import Header from "../Header/Header";
 import useAuth from "../../config/context/AuthContext";
 import axios from "axios";
 import { auth } from "../../config/Firebase/Firebase";
 import { toast } from "react-toastify";
+import { GLOBAL_URL } from "../../config/global/contant";
 
 const Profile = () => {
 	const { userData, setUserData } = useAuth();
@@ -24,7 +25,7 @@ const Profile = () => {
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.post(
-				`http://localhost:5000/api/auth/${userData._id}/userprofile`,
+				`${GLOBAL_URL}/api/auth/${userData._id}/userprofile`,
 				{
 					firstName: firstName,
 					lastName: lastName,
@@ -55,10 +56,15 @@ const Profile = () => {
 
 	return (
 		<>
-        <Header />
+			<Header />
 			<div className="container position-relative">
 				<img src={coverimage} className="img-thumbnail" alt="image" />
-                <img src={userData.profileImage} className="position-absolute start-0 rounded-circle ms-5 mb-5" style={{height: "120px", width:"120px", bottom: "30px"}} alt="" />
+				<img
+					src={userData.profileImage}
+					className="position-absolute start-0 rounded-circle ms-5 mb-5"
+					style={{ height: "120px", width: "120px", bottom: "30px" }}
+					alt=""
+				/>
 				<hr className="mt-5" />
 				<h2>
 					{userData.firstName} {userData.lastName}

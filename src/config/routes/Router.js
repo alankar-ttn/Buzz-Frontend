@@ -13,8 +13,12 @@ const Router = () => {
 			<Route path="/" element={<PrivateRoute />}>
 				<Route path="/" element={<Feeds />} />
 			</Route>
-			<Route path="/profile" element={<Profile />} />
-			<Route path="/:id/user" element={<ViewProfile />} />
+			<Route path="/profile" element={<PrivateRoute />}>
+				<Route path="/profile" element={<Profile />} />
+			</Route>
+			<Route path="/:id/user" element={<PrivateRoute />}>
+				<Route path="/:id/user" element={<ViewProfile />} />
+			</Route>
 		</Routes>
 	);
 };

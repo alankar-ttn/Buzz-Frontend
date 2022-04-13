@@ -15,6 +15,7 @@ import React, {
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { auth } from "../Firebase/Firebase";
+import { GLOBAL_URL } from "../global/contant";
 
 const AuthContext = createContext({});
 
@@ -34,7 +35,7 @@ export const AuthProvider = ({ children }) => {
 				const getUserData = async () => {
 					const token = await auth.currentUser.getIdToken();
 					await axios
-						.get(`http://127.0.0.1:5000/api/auth/profile`, {
+						.get(`${GLOBAL_URL}/api/auth/profile`, {
 							headers: {
 								Authorization: `Bearer ${token}`,
 							},
@@ -58,7 +59,7 @@ export const AuthProvider = ({ children }) => {
 			const user = result.user;
 			localStorage.setItem("token", user.accessToken);
 			await axios
-				.post("http://127.0.0.1:5000/api/auth/register/google", {
+				.post(`${GLOBAL_URL}/api/auth/register/google`, {
 					email: user.email,
 					firstName: user.displayName.split(" ")[0],
 					lastName: user.displayName.split(" ")[1],
@@ -66,15 +67,15 @@ export const AuthProvider = ({ children }) => {
 					profileImage: user.photoURL,
 				})
 				.then((res) => {
-					console.log("respomse",res.data);
+					console.log("respomse", res.data);
 					navigation("/");
 				})
 				.catch((err) => {
-					toast.error("You can only login using TTN Email Id...")
+					toast.error("You can only login using TTN Email Id...");
 					setUser(null);
 					setUserData(null);
-					console.log("error", err.response)}
-				);
+					console.log("error", err.response);
+				});
 		});
 	};
 
@@ -88,7 +89,7 @@ export const AuthProvider = ({ children }) => {
 	const getPosts = async () => {
 		const token = await auth.currentUser.getIdToken();
 		await axios
-			.get("http://127.0.0.1:5000/api/posts", {
+			.get(`${GLOBAL_URL}/api/posts`, {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: "Bearer " + token,

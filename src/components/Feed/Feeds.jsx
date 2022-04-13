@@ -31,7 +31,14 @@ const Feeds = () => {
 					alignItems: "flex-start",
 				}}
 			>
-				<div style={{ flex: 1, marginLeft: "10px", position: "sticky", top: "60px" }}>
+				<div
+					style={{
+						flex: 1,
+						marginLeft: "10px",
+						position: "sticky",
+						top: "60px",
+					}}
+				>
 					<Sidebar />
 				</div>
 				<div style={{ flex: 2 }}>
@@ -91,7 +98,14 @@ const Feeds = () => {
 					</div>
 				</div>
 
-				<div style={{ flex: 1, marginRight: "10px", position: "sticky", top: "60px" }}>
+				<div
+					style={{
+						flex: 1,
+						marginRight: "10px",
+						position: "sticky",
+						top: "60px",
+					}}
+				>
 					<Rightbar />
 				</div>
 			</div>

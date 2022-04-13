@@ -5,9 +5,9 @@ import { getDownloadURL, ref as storeRef, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../../config/Firebase/Firebase";
 import axios from "axios";
 import useAuth from "../../../config/context/AuthContext";
+import { GLOBAL_URL } from "../../../config/global/contant";
 
 const PostForm = () => {
-
 	const [formOpen, setFormOpen] = useState(false);
 	const [caption, setCaption] = useState("");
 	const [images, setImages] = useState([]);
@@ -48,7 +48,7 @@ const PostForm = () => {
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.post(
-				"http://127.0.0.1:5000/api/posts",
+				`${GLOBAL_URL}/api/posts`,
 				{
 					caption,
 					images,

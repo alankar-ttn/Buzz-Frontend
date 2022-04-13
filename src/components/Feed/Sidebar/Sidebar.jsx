@@ -13,7 +13,7 @@ export default function Sidebar() {
 		<>
 			<div className="sidebar">
 				<div className="profile">
-					<div className="profileRight"> 
+					<div className="profileRight">
 						<div className="profileRightTop">
 							<div className="profileCover">
 								<img

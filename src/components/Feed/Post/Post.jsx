@@ -12,6 +12,7 @@ import useAuth from "../../../config/context/AuthContext";
 import { auth } from "../../../config/Firebase/Firebase";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { GLOBAL_URL } from "../../../config/global/contant";
 
 const Post = ({ post }) => {
 	const [date, setDate] = useState("");
@@ -42,7 +43,7 @@ const Post = ({ post }) => {
 		const getComments = async () => {
 			const token = await auth.currentUser.getIdToken();
 			await axios
-				.get(`http://127.0.0.1:5000/api/posts/${post._id}/comments`, {
+				.get(`${GLOBAL_URL}/api/posts/${post._id}/comments`, {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
@@ -59,7 +60,7 @@ const Post = ({ post }) => {
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.post(
-				`http://127.0.0.1:5000/api/posts/${post._id}/comments`,
+				`${GLOBAL_URL}/api/posts/${post._id}/comments`,
 				{ comment },
 				{
 					headers: {
@@ -79,7 +80,7 @@ const Post = ({ post }) => {
 			const token = await auth.currentUser.getIdToken();
 			await axios
 				.post(
-					`http://127.0.0.1:5000/api/posts/${post._id}/reaction`,
+					`${GLOBAL_URL}/api/posts/${post._id}/reaction`,
 					{ reaction },
 					{
 						headers: {
@@ -99,7 +100,7 @@ const Post = ({ post }) => {
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.post(
-				`http://127.0.0.1:5000/api/posts/${post._id}/report`,
+				`${GLOBAL_URL}/api/posts/${post._id}/report`,
 				{ reported },
 				{
 					headers: {
@@ -239,7 +240,11 @@ const Post = ({ post }) => {
 						<div
 							data-bs-toggle="modal"
 							data-bs-target={`#commentModal${post._id}`}
-							style={{display: "flex", justifyContent: "center", alignItems: "center"}}
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+							}}
 						>
 							<div className="post__footerCommentIcon">
 								<FaCommentDots

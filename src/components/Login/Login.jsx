@@ -10,13 +10,13 @@ const Login = () => {
 	const handleGoogleSignIn = async () => {
 		await signInWithGoogle();
 	};
-    const navigate = useNavigate()
+	const navigate = useNavigate();
 
-    useEffect(() => {
-        if (user) {
-            navigate('/')
-        }
-    }, [user])
+	useEffect(() => {
+		if (user) {
+			navigate("/");
+		}
+	}, [user]);
 
 	return (
 		<div className="login">

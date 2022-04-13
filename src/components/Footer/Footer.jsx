@@ -6,7 +6,7 @@ const Footer = () => {
 	return (
 		<div class="card text-center">
 			<div class="card-body">
-            <img className="ttnLogo" src={logo} alt="" />
+				<img className="ttnLogo" src={logo} alt="" />
 				<h5 class="card-title">BUZZ</h5>
 				<p class="card-text">Made by Aditi, Alankar, Amit</p>
 			</div>

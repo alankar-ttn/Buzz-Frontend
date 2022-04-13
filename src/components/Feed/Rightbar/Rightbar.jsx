@@ -6,6 +6,7 @@ import axios from "axios";
 import { auth } from "../../../config/Firebase/Firebase";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { GLOBAL_URL } from "../../../config/global/contant";
 
 export default function Rightbar() {
 	const [friends, setFriends] = useState([]);
@@ -15,7 +16,7 @@ export default function Rightbar() {
 		const getUsers = async () => {
 			const token = await auth.currentUser.getIdToken();
 			await axios
-				.get("http://localhost:5000/api/auth/users", {
+				.get(`${GLOBAL_URL}/api/auth/users`, {
 					headers: {
 						Authorization: `Bearer ${token}`,
 					},
