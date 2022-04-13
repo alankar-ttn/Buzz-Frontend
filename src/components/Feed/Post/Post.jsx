@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Post.css";
-import { FaEllipsisH, FaThumbsUp, FaHeartBroken, FaFlag, FaCommentDots } from "react-icons/fa";
+import {
+	FaEllipsisH,
+	FaThumbsUp,
+	FaHeartBroken,
+	FaFlag,
+	FaCommentDots,
+} from "react-icons/fa";
 import axios from "axios";
 import useAuth from "../../../config/context/AuthContext";
 import { auth } from "../../../config/Firebase/Firebase";
@@ -230,8 +236,12 @@ const Post = ({ post }) => {
 						</div>
 					</div>
 					<div className="post__footerDescRight">
-						<div>
-							<span className="post__footerCommentIcon">
+						<div
+							data-bs-toggle="modal"
+							data-bs-target={`#commentModal${post._id}`}
+							style={{display: "flex", justifyContent: "center", alignItems: "center"}}
+						>
+							<div className="post__footerCommentIcon">
 								<FaCommentDots
 									color="#fff"
 									size="15px"
@@ -239,7 +249,7 @@ const Post = ({ post }) => {
 										width: "20px",
 									}}
 								/>
-							</span>
+							</div>
 							{post.comments.length}
 						</div>
 					</div>
@@ -369,7 +379,10 @@ const Post = ({ post }) => {
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id={`commentModalLabel${post._id}`}>
+							<h5
+								className="modal-title"
+								id={`commentModalLabel${post._id}`}
+							>
 								Comments
 							</h5>
 							<button
