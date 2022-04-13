@@ -112,9 +112,17 @@
 	margin-right: 5px;
 }
 
-.post__footerDescRight:hover {
-	cursor: pointer;
-	text-decoration: underline;
+.post__footerDescRight {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+}
+
+.post__footerCommentIcon {
+	background-color: whitesmoke;
+	border-radius: 50%;
+	padding: 4px;
+	margin-right: 5px;
 }
 
 .post__footerActions {

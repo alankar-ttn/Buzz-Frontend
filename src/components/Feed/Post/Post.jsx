@@ -233,15 +233,14 @@ const Post = ({ post }) => {
 						<div>
 							<span className="post__footerCommentIcon">
 								<FaCommentDots
-								color="#fff"
-								size="15px"
-								style={{
-									width: "20px",
-								}}
+									color="#fff"
+									size="15px"
+									style={{
+										width: "20px",
+									}}
 								/>
 							</span>
 							{post.comments.length}
-							comments
 						</div>
 					</div>
 				</div>
