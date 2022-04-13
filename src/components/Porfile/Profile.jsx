@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import coverimage from "./pexels.jpg";
-import Footer from "../Footer/Footer";
+import Header from "../Header/Header"
 import useAuth from "../../config/context/AuthContext";
 import axios from "axios";
 import { auth } from "../../config/Firebase/Firebase";
@@ -55,9 +55,11 @@ const Profile = () => {
 
 	return (
 		<>
-			<div className="container">
+        <Header />
+			<div className="container position-relative">
 				<img src={coverimage} className="img-thumbnail" alt="image" />
-				<hr />
+                <img src={userData.profileImage} className="position-absolute start-0 rounded-circle ms-5 mb-5" style={{height: "120px", width:"120px", bottom: "30px"}} alt="" />
+				<hr className="mt-5" />
 				<h2>
 					{userData.firstName} {userData.lastName}
 				</h2>
@@ -247,7 +249,6 @@ const Profile = () => {
 					</div>
 				</form>
 			</div>
-			<Footer />
 		</>
 	);
 };

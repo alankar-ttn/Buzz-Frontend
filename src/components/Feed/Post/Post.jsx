@@ -74,7 +74,7 @@ const Post = ({ post }) => {
 			await axios
 				.post(
 					`http://127.0.0.1:5000/api/posts/${post._id}/reaction`,
-					{ reaction:true },
+					{ reaction },
 					{
 						headers: {
 							Authorization: `Bearer ${token}`,
@@ -84,7 +84,7 @@ const Post = ({ post }) => {
 				.then((res) => {
 					console.log(res);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => console.log(err.response));
 		};
 		sendReaction();
 	}, [reaction]);
@@ -356,13 +356,13 @@ const Post = ({ post }) => {
 				className="modal fade"
 				id={`commentModal${post._id}`}
 				tabIndex="-1"
-				aria-labelledby="exampleModalLabel"
+				aria-labelledby={`commentModalLabel${post._id}`}
 				aria-hidden="true"
 			>
 				<div className="modal-dialog">
 					<div className="modal-content">
 						<div className="modal-header">
-							<h5 className="modal-title" id="exampleModalLabel">
+							<h5 className="modal-title" id={`commentModalLabel${post._id}`}>
 								Comments
 							</h5>
 							<button

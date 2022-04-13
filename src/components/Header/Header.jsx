@@ -4,17 +4,17 @@ import useAuth from "../../config/context/AuthContext";
 import "./Header.css";
 
 const Header = () => {
-	const { user, logout } = useAuth();
+	const { user, logout, userData } = useAuth();
 
 	return (
-		<header className="header">
+		<header className="header position-sticky top-0" style={{zIndex: 12}}>
 			<h1 className="header__brand">
 				<NavLink to="/">BUZZ</NavLink>
 			</h1>
 			<div className="dropdown">
 				<div className="header__right" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-					<img src={user.photoURL} alt="" />
-					<p>{user.displayName}</p>
+					<img src={user?.photoURL} alt="" />
+					<p>{user?.displayName}</p>
 				</div>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><NavLink to={"/profile"} className="dropdown-item">Profile</NavLink></li>
