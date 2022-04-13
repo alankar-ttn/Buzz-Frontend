@@ -13,8 +13,8 @@ const Header = () => {
 			</h1>
 			<div className="dropdown">
 				<div className="header__right" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-					<img src={user.photoURL} alt="" />
-					<p>{user.displayName}</p>
+					<img src={user?.photoURL} alt="" />
+					<p>{user?.displayName}</p>
 				</div>
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
                     <li><NavLink to={"/profile"} className="dropdown-item">Profile</NavLink></li>
