@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Profile.css";
 import coverimage from "./pexels.jpg";
-import Footer from "../Footer/Footer";
 import Header from "../Header/Header"
 import useAuth from "../../config/context/AuthContext";
 import axios from "axios";
@@ -250,7 +249,6 @@ const Profile = () => {
 					</div>
 				</form>
 			</div>
-			<Footer />
 		</>
 	);
 };
