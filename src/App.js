@@ -15,7 +15,7 @@ function App() {
 				</AuthProvider>
 			</BrowserRouter>
 			<ToastContainer />
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 }
