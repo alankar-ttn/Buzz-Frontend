@@ -14,35 +14,41 @@ export default function ViewProfile() {
 								<img className="coverImage" src="" alt="" />
 								<img className="userImage" src="" alt="" />
 							</div>
-							<div className="profileInfo">
-								<h4 className="profileInfoName">Xyz</h4>
-								<span className="profileInfoDesc">
-									Xyz is co-founder and COD of video ad tech
-									company.
+						</div>
+						<div className="forMargin">
+							<div className="profileInfo1">
+								<h4 className="profileInfoName1">Sarah Wood</h4>
+								<span className="profileInfoDesc1">
+									Sarah Wood is co-founder and COD of video ad
+									tech company.
 								</span>
 							</div>
-						</div>
-						<div className="viewProfileWrapper">
-							<ul className="viewProfileList">
-								<li className="viewProfileListItem">London</li>
-								<li className="viewProfileListItem">England</li>
-								<li className="viewProfileListItem">
-									United Kingdom
-								</li>
-								<li className="viewProfileListItem">
-									234 friends
-								</li>
-							</ul>
-						</div>
-						<div className="profileRightBottom">
-							<button className="addFriendButton">
-								<HiUserAdd className="viewProfileIcon" />
-								Add Friend
-							</button>
-							<button className="visitWebsiteButton">
-								<AiOutlineSelect className="viewProfileIcon" />
-								Visit Website
-							</button>
+							<div className="viewProfileWrapper">
+								<ul className="viewProfileList">
+									<li className="viewProfileListItem">
+										London
+									</li>
+									<li className="viewProfileListItem">
+										England
+									</li>
+									<li className="viewProfileListItem">
+										United Kingdom
+									</li>
+									<li className="viewProfileListItem">
+										234 friends
+									</li>
+								</ul>
+							</div>
+							<div className="profileRightBottom1">
+								<button className="addFriendButton">
+									<HiUserAdd className="viewProfileIcon" />
+									Add Friend
+								</button>
+								<button className="visitWebsiteButton">
+									<AiOutlineSelect className="viewProfileIcon" />
+									Visit Website
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
