@@ -101,7 +101,7 @@ const Post = ({ post }) => {
 		await axios
 			.post(
 				`${GLOBAL_URL}/api/posts/${post._id}/report`,
-				{ reported },
+				{ reported: true },
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -110,6 +110,24 @@ const Post = ({ post }) => {
 			)
 			.then((res) => {
 				toast.success("Post reported successfully");
+			})
+			.catch((err) => toast.error("Error reporting post"));
+	};
+
+	const removeReportPost = async () => {
+		const token = await auth.currentUser.getIdToken();
+		await axios
+			.post(
+				`${GLOBAL_URL}/api/posts/${post._id}/report`,
+				{ reported: false },
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			)
+			.then((res) => {
+				toast.success("Post unreported successfully");
 			})
 			.catch((err) => toast.error("Error reporting post"));
 	};
@@ -146,7 +164,7 @@ const Post = ({ post }) => {
 										class="dropdown-item cursor-pointer"
 										onClick={() => {
 											setReported(false);
-											reportPost();
+											removeReportPost();
 										}}
 									>
 										Remove Report Tag

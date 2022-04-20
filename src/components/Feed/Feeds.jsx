@@ -8,7 +8,7 @@ import Sidebar from "./Sidebar/Sidebar";
 import Rightbar from "./Rightbar/Rightbar";
 
 const Feeds = () => {
-	const { posts, getPosts, userData } = useAuth();
+	const { posts, getPosts, userData, loading } = useAuth();
 	const [userType, setUserType] = useState("Admin");
 	const [checked, setChecked] = useState(false);
 

@@ -14,6 +14,7 @@ import React, {
 } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Spinner from "../../components/Spinner/Spinner";
 import { auth } from "../Firebase/Firebase";
 import { GLOBAL_URL } from "../global/contant";
 
@@ -31,13 +32,12 @@ export const AuthProvider = ({ children }) => {
 	useEffect(() => {
 		onAuthStateChanged(auth, async (user) => {
 			if (user) {
-				setUser(user);
 				const getUserData = async () => {
 					const token = await auth.currentUser.getIdToken();
 					await axios
-						.get(`${GLOBAL_URL}/api/auth/profile`, {
-							headers: {
-								Authorization: `Bearer ${token}`,
+					.get(`${GLOBAL_URL}/api/auth/profile`, {
+						headers: {
+							Authorization: `Bearer ${token}`,
 							},
 						})
 						.then((res) => {
@@ -45,6 +45,7 @@ export const AuthProvider = ({ children }) => {
 						});
 				};
 				await getUserData();
+				setUser(user);
 			} else {
 				setUser(null);
 				setUserData(null);
@@ -87,6 +88,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const getPosts = async () => {
+		setLoading(true)
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.get(`${GLOBAL_URL}/api/posts`, {
@@ -100,7 +102,8 @@ export const AuthProvider = ({ children }) => {
 			})
 			.catch((err) => {
 				console.log(err);
-			});
+			})
+			.finally(() => setLoading(false));
 	};
 
 	const memoedValue = useMemo(
@@ -119,7 +122,7 @@ export const AuthProvider = ({ children }) => {
 
 	return (
 		<AuthContext.Provider value={memoedValue}>
-			{!loadingInitial && children}
+			{loadingInitial ? <Spinner /> : !loadingInitial && children}
 		</AuthContext.Provider>
 	);
 };
