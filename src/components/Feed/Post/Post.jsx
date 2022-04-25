@@ -84,6 +84,7 @@ const Post = ({ post }) => {
 					{ reaction },
 					{
 						headers: {
+							"Content-Type": "application/json",
 							Authorization: `Bearer ${token}`,
 						},
 					}
