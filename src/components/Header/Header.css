@@ -43,3 +43,37 @@ a {
 	text-decoration: none;
 	cursor: pointer;
 }
+
+.headerIcon{
+	margin-right: 15px;
+	height: 100%;
+	border: 1px solid #4d64eb;
+	color: #fff;
+	background-color: #4d64eb;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.friendListIcon{
+	font-size: 32px;
+	font-weight: 600;
+	height: 100%;
+	
+	
+	padding: 6px;
+	
+}
+
+.dropdown{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.btn{
+	border: none;
+	outline: none;
+}
