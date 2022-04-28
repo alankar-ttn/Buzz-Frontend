@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import "./Profile.css";
 import coverimage from "./pexels.jpg";
 import Header from "../Header/Header";
