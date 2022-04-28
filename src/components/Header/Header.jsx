@@ -1,12 +1,31 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 import useAuth from "../../config/context/AuthContext";
 import "./Header.css";
+import { auth } from "../../config/Firebase/Firebase";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { GLOBAL_URL } from "../../config/global/contant";
 
 const Header = () => {
 	const { user, logout, userData } = useAuth();
-	console.log(userData);
+	const [suggestion, setSuggestion] = useState([]);
+
+	useEffect(() => {
+		const getUsers = async () => {
+			const token = await auth.currentUser.getIdToken();
+			await axios
+				.get(`${GLOBAL_URL}/api/auth/users`, {
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				})
+				.then((res) => setSuggestion(res.data))
+				.catch((err) => toast.error("Oops! Something went wrong!"));
+		};
+		getUsers();
+	}, []);
 
 	return (
 		<header className="header position-sticky top-0" style={{ zIndex: 12 }}>
@@ -26,22 +45,34 @@ const Header = () => {
 					<ul
 						class="dropdown-menu"
 						aria-labelledby="dropdownMenuButton1"
+						style={{width: "350px"}}
 					>
-						<li>
-							<a class="dropdown-item" href="#">
-								Action
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">
-								Another action
-							</a>
-						</li>
-						<li>
-							<a class="dropdown-item" href="#">
-								Something else here
-							</a>
-						</li>
+						{userData.friendRequestsReceived.length > 0 ? (
+							suggestion.filter(user => userData?.friendRequestsReceived.includes(user._id)).map((user) => (
+								<Link to={`/${user._id}/user`}>
+									<li className="rightbarContact m-3 p-3">
+										<div className="rightbarProfileImgContainer">
+											<div>
+												<img
+													className="rightbarProfileImg"
+													src={user.profileImage}
+													alt=""
+												/>
+												<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
+											</div>
+										</div>
+									</li>
+								</Link>
+							))
+						) : (
+							<li className="rightbarContact m-3 p-3">
+								<div className="rightbarProfileImgContainer">
+									<div>
+										<span className="rightbarContactName">{`No Requests Received`}</span>
+									</div>
+								</div>
+							</li>
+						)}
 					</ul>
 				</div>
 
@@ -52,8 +83,8 @@ const Header = () => {
 						data-bs-toggle="dropdown"
 						aria-expanded="false"
 					>
-						<img src={user?.photoURL} alt="" />
-						<p>{user?.displayName}</p>
+						<img src={userData?.profileImage} alt="" />
+						<p>{`${userData?.firstName} ${userData?.lastName}`}</p>
 					</div>
 					<ul
 						className="dropdown-menu"

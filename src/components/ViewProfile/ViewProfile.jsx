@@ -36,7 +36,31 @@ export default function ViewProfile() {
 				});
 		};
 		getUser();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [reload]);
+
+	useEffect(() => {
+		const updateViews = async () => {
+			const token = await auth.currentUser.getIdToken();
+			await axios.put(
+				`${GLOBAL_URL}/api/auth/${id}/addViews`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+		};
+		const viewer = setTimeout(async () => {
+			await updateViews();
+		}, 5000);
+
+		return () => {
+			clearTimeout(viewer);
+		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const sendFriendRequest = async () => {
 		const token = await auth.currentUser.getIdToken();
@@ -87,31 +111,60 @@ export default function ViewProfile() {
 	return (
 		<>
 			<Header />
-			<div className="viewProfile">
+			<div className="viewProfile container">
 				<div className="profile">
 					<div className="profileRight">
 						<div className="profileRightTop">
-							<div className="profileCover">
+							<div
+								className="profileCover"
+								style={{ position: "relative" }}
+							>
 								<img
 									className="coverImage"
-									src={cover}
+									src={user.coverImage || cover}
 									alt=""
-									style={{ height: "300px" }}
+									style={{
+										height: "300px",
+										width: "100%",
+										objectFit: "contain",
+										zIndex: "1",
+									}}
 								/>
 								<img
-									className="userImage"
+									className="coverImage"
+									src={user.coverImage || cover}
+									alt=""
+									style={{
+										height: "300px",
+										position: "absolute",
+										zIndex: "0",
+										width: "100%",
+										filter: "blur(15px)",
+										borderRadius: "10px",
+									}}
+								/>
+								<img
+									className="userImage img-thumbnail"
 									src={user.profileImage}
 									alt=""
-									style={{ height: "120px", width: "120px" }}
+									style={{
+										height: "120px",
+										width: "120px",
+										zIndex: 1,
+										position: "absolute",
+										left: "20px",
+									}}
 								/>
 							</div>
 						</div>
 						<div className="forMargin">
 							<div className="profileInfo1">
 								<h4 className="profileInfoName1">{`${user.firstName} ${user.lastName}`}</h4>
-								<span className="profileInfoDesc1">
-									{`${user.firstName} ${user.lastName} is a ${user.designation}`}
-								</span>
+								{user.designation && (
+									<span className="profileInfoDesc1">
+										{`${user.firstName} ${user.lastName} is a ${user.designation}`}
+									</span>
+								)}
 							</div>
 							<div className="profileRightBottom1">
 								{!user.friendRequestsReceived?.includes(
@@ -119,7 +172,8 @@ export default function ViewProfile() {
 								) &&
 									!user.friendRequestsSent?.includes(
 										userData._id
-									) && !user.friends?.includes(userData._id) && (
+									) &&
+									!user.friends?.includes(userData._id) && (
 										<button
 											className="addFriendButton"
 											onClick={() => sendFriendRequest()}
@@ -131,7 +185,10 @@ export default function ViewProfile() {
 								{user.friendRequestsReceived?.includes(
 									userData._id
 								) && (
-									<button className="sendFriendRequest">
+									<button
+										className="sendFriendRequest"
+										style={{ cursor: "default" }}
+									>
 										<IoIosSend className="viewProfileIcon" />
 										Request Sent
 									</button>
@@ -148,13 +205,20 @@ export default function ViewProfile() {
 									</button>
 								)}
 								{user.friends?.includes(userData._id) && (
-									<button className="friendAddedButton">
+									<button
+										className="friendAddedButton"
+										style={{ cursor: "default" }}
+									>
 										<FaUserFriends className="friendNowIcon" />
 										Friends
 									</button>
 								)}
-								{user.website !== "" && (
-									<a href={user.website} target="_blank">
+								{user.website && (
+									<a
+										href={user.website}
+										target="_blank"
+										rel="noreferrer"
+									>
 										<button className="visitWebsiteButton">
 											<AiOutlineSelect className="viewProfileIcon" />
 											Visit Website

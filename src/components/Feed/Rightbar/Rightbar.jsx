@@ -1,6 +1,5 @@
 import "./Rightbar.css";
 import { AiOutlinePlus } from "react-icons/ai";
-import userImg from "../../../static/images/user-image.jpeg";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { auth } from "../../../config/Firebase/Firebase";
@@ -10,7 +9,6 @@ import { GLOBAL_URL } from "../../../config/global/contant";
 import useAuth from "../../../config/context/AuthContext";
 
 export default function Rightbar() {
-	const [friends, setFriends] = useState([]);
 	const [suggestion, setSuggestion] = useState([]);
 	const {userData} = useAuth()
 
@@ -32,33 +30,35 @@ export default function Rightbar() {
 	return (
 		<>
 			<div className="rightbar">
-				<div className="rightbarWrapper">
-					<h4 className="rightbarTitle">Friends</h4>
-					<ul className="rightbarContactList" style={{paddingLeft: 0}}>
-					{suggestion.filter(user => userData.friends.includes(user._id)).map((user) => (
-							<Link to={`/${user._id}/user`}>
-								<li className="rightbarContact my-3 me-5 p-3">
-									<div className="rightbarProfileImgContainer">
-										<div>
-											<img
-												className="rightbarProfileImg"
-												src={user.profileImage}
-												alt=""
-											/>
-											<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
+				{userData?.friends.length > 0 && (
+					<div className="rightbarWrapper">
+						<h4 className="rightbarTitle">Friends</h4>
+						<ul className="rightbarContactList" style={{paddingLeft: 0}}>
+						{suggestion.filter(user => userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
+								<Link to={`/${user._id}/user`}>
+									<li className="rightbarContact my-3 p-3">
+										<div className="rightbarProfileImgContainer">
+											<div>
+												<img
+													className="rightbarProfileImg"
+													src={user.profileImage}
+													alt=""
+												/>
+												<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
+											</div>
 										</div>
-									</div>
-								</li>
-							</Link>
-						))}
-					</ul>
-				</div>
+									</li>
+								</Link>
+							))}
+						</ul>
+					</div>
+				)}
 				<div className="rightbarWrapper2">
 					<h4 className="rightbarTitle">Suggestions</h4>
 					<ul className="rightbarContactList" style={{paddingLeft: 0}}>
-						{suggestion.filter(user => !userData.friends.includes(user._id)).map((user) => (
+						{suggestion.filter(user => !userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
 							<Link to={`/${user._id}/user`}>
-								<li className="rightbarContact my-3 me-5 p-3">
+								<li className="rightbarContact my-3 p-3">
 									<div className="rightbarProfileImgContainer">
 										<div>
 											<img

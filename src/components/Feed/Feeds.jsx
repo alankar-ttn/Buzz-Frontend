@@ -88,13 +88,24 @@ const Feeds = () => {
 								</div>
 							</div>
 						)}
-						{userType === "Admin"
-							? posts
+						{userType === "Admin" ? (
+							posts.filter((post) => post.reported === true)
+								.length > 0 ? (
+								posts
 									.filter((post) => post.reported === true)
 									.map((p) => <Post key={p._id} post={p} />)
-							: posts.map((post) => (
-									<Post key={post._id} post={post} />
-							  ))}
+							) : (
+								<div className="h1">No post reported</div>
+							)
+						) : (
+							posts.map((post) => (
+								<Post
+									key={post._id}
+									post={post}
+									userType={userType}
+								/>
+							))
+						)}
 					</div>
 				</div>
 

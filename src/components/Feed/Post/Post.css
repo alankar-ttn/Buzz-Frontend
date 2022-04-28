@@ -109,6 +109,7 @@
 	background-color: rgb(255, 30, 0);
 	border-radius: 50%;
 	padding: 4px;
+	margin-right: 5px;
 }
 
 .post__footerDescRight {

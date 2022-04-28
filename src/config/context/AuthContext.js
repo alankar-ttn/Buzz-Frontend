@@ -35,9 +35,9 @@ export const AuthProvider = ({ children }) => {
 				const getUserData = async () => {
 					const token = await auth.currentUser.getIdToken();
 					await axios
-					.get(`${GLOBAL_URL}/api/auth/profile`, {
-						headers: {
-							Authorization: `Bearer ${token}`,
+						.get(`${GLOBAL_URL}/api/auth/profile`, {
+							headers: {
+								Authorization: `Bearer ${token}`,
 							},
 						})
 						.then((res) => {
@@ -75,7 +75,7 @@ export const AuthProvider = ({ children }) => {
 					toast.error("You can only login using TTN Email Id...");
 					setUser(null);
 					setUserData(null);
-					console.log("error", err.response);
+					logout();
 				});
 		});
 	};
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 	};
 
 	const getPosts = async () => {
-		setLoading(true)
+		setLoading(true);
 		const token = await auth.currentUser.getIdToken();
 		await axios
 			.get(`${GLOBAL_URL}/api/posts`, {
@@ -117,6 +117,7 @@ export const AuthProvider = ({ children }) => {
 			userData,
 			setUserData,
 		}),
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[user, loading, posts, userData, setUserData]
 	);
 

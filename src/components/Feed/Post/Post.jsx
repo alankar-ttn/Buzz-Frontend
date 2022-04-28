@@ -14,7 +14,7 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { GLOBAL_URL } from "../../../config/global/contant";
 
-const Post = ({ post }) => {
+const Post = ({ post, userType }) => {
 	const [date, setDate] = useState("");
 	const [comment, setComment] = useState("");
 	const [comments, setComments] = useState([]);
@@ -69,10 +69,11 @@ const Post = ({ post }) => {
 				}
 			)
 			.then((res) => {
+				console.log(res)
 				setComment("");
 				setCommentChanged(!commentChanged);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err.response));
 	};
 
 	useEffect(() => {
@@ -146,7 +147,7 @@ const Post = ({ post }) => {
 					</div>
 				</div>
 				<div className="post__headerRight dropdown">
-					{userData?.isAdmin && (
+					{ userType !== "User" && userData?.isAdmin && (
 						<>
 							<div
 								className="post__headerOptions dropdown-toggle"
@@ -378,7 +379,7 @@ const Post = ({ post }) => {
 					</div>
 				</div>
 				<div className="post__commentForm">
-					<img src={user.photoURL} alt="" />
+					<img src={userData.profileImage} alt="" />
 					<input
 						type="text"
 						placeholder="Write a comment"

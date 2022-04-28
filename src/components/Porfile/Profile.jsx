@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./Profile.css";
 import coverimage from "./pexels.jpg";
 import Header from "../Header/Header";
 import useAuth from "../../config/context/AuthContext";
 import axios from "axios";
-import { auth } from "../../config/Firebase/Firebase";
+import { auth, storage } from "../../config/Firebase/Firebase";
 import { toast } from "react-toastify";
 import { GLOBAL_URL } from "../../config/global/contant";
+import { FaEdit } from "react-icons/fa";
+import { getDownloadURL, ref as storeRef, uploadBytes } from "firebase/storage";
 
 const Profile = () => {
 	const { userData, setUserData } = useAuth();
@@ -15,10 +17,16 @@ const Profile = () => {
 	const [designation, setdesignation] = useState(userData.designation);
 	const [website, setwebsite] = useState(userData.website);
 	const [gender, setgender] = useState(userData.gender);
-	const [birthday, setbirthday] = useState(userData.birthday);
+	const [birthday, setbirthday] = useState(userData.dateOfBirth);
 	const [city, setcity] = useState(userData.city);
 	const [state, setstate] = useState(userData.state);
-	const [zip, setzip] = useState(userData.zip);
+	const [zip, setzip] = useState(userData.pincode);
+	const [profileImage, setProfileImage] = useState(userData.profileImage);
+	const [coverImage, setCoverImage] = useState(
+		userData?.coverImage || coverimage
+	);
+	const [profileImageLoading, setProfileImageLoading] = useState(false);
+	const [coverImageLoading, setCoverImageLoading] = useState(false);
 
 	const userUpdateProfile = async (e) => {
 		e.preventDefault();
@@ -45,7 +53,7 @@ const Profile = () => {
 			)
 			.then((res) => {
 				console.log(res);
-				setUserData(res.data);
+				setUserData({ ...userData, ...res.data });
 				toast.success("user profile updated successfully");
 			})
 			.catch((err) => {
@@ -54,17 +62,227 @@ const Profile = () => {
 			});
 	};
 
+	const profileImageUploadRef = useRef(null);
+	const coverImageUploadRef = useRef(null);
+
+	const handleProfileImageUpload = async (e) => {
+		setProfileImageLoading(true);
+		const files = profileImageUploadRef.current.files[0];
+		const storageRef = storeRef(storage, `ProfilePics/${files.name}`);
+		await uploadBytes(storageRef, files)
+			.then(async (snapshot) => {
+				const fileRef = storeRef(storage, `ProfilePics/${files.name}`);
+				await getDownloadURL(fileRef).then(async (url) => {
+					setProfileImage(url);
+					const token = await auth.currentUser.getIdToken();
+					await axios
+						.post(
+							`${GLOBAL_URL}/api/auth/${userData._id}/profileImage`,
+							{
+								profileImage: url,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							}
+						)
+						.then((res) => {
+							console.log(res);
+							setUserData({
+								...userData,
+								profileImage: res.data.profileImage,
+							});
+							setProfileImageLoading(false);
+							toast.success("Profile Image updated successfully");
+						})
+						.catch((err) => {
+							console.log(err);
+							toast.error("Something went wrong");
+						});
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
+	const handleCoverImageUpload = async (e) => {
+		setCoverImageLoading(true);
+		const files = coverImageUploadRef.current.files[0];
+		const storageRef = storeRef(storage, `CoverPics/${files.name}`);
+		await uploadBytes(storageRef, files)
+			.then(async (snapshot) => {
+				const fileRef = storeRef(storage, `CoverPics/${files.name}`);
+				await getDownloadURL(fileRef).then(async (url) => {
+					setCoverImage(url);
+					const token = await auth.currentUser.getIdToken();
+					await axios
+						.post(
+							`${GLOBAL_URL}/api/auth/${userData._id}/coverImage`,
+							{
+								coverImage: url,
+							},
+							{
+								headers: {
+									Authorization: `Bearer ${token}`,
+								},
+							}
+						)
+						.then((res) => {
+							console.log(res);
+							setUserData({
+								...userData,
+								coverImage: res.data.coverImage,
+							});
+							setCoverImageLoading(false);
+							toast.success("Cover Image updated successfully");
+						})
+						.catch((err) => {
+							console.log(err);
+							toast.error("Something went wrong");
+						});
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<>
 			<Header />
 			<div className="container position-relative">
-				<img src={coverimage} className="img-thumbnail" alt="image" />
-				<img
-					src={userData.profileImage}
-					className="position-absolute start-0 rounded-circle ms-5 mb-5"
-					style={{ height: "120px", width: "120px", bottom: "30px" }}
-					alt=""
-				/>
+				{coverImageLoading ? (
+					<div
+						className="d-flex justify-content-center align-items-center bg-white"
+						style={{
+							width: "100%",
+							height: "250px",
+						}}
+					>
+						<div class="spinner-border text-primary" role="status">
+							<span class="visually-hidden">Loading...</span>
+						</div>
+					</div>
+				) : (
+					<>
+						<img
+							src={coverImage}
+							className="img-fluid"
+							style={{
+								height: "250px",
+								width: "100%",
+								objectFit: "contain",
+							}}
+							alt="image"
+						/>
+						<img
+							src={coverImage}
+							className="img-fluid"
+							style={{
+								height: "250px",
+								width: "100%",
+								objectFit: "cover",
+								position: "absolute",
+								left: "0",
+								zIndex: "-1",
+								filter: "blur(15px)",
+							}}
+							alt="image"
+						/>
+						<input
+							type="file"
+							style={{
+								display: "none",
+							}}
+							ref={coverImageUploadRef}
+							accept="image/*"
+							onChange={(e) => {
+								handleCoverImageUpload(e);
+							}}
+						/>
+						<div
+							className="position-absolute p-2 rounded-circle bg-white"
+							style={{
+								bottom: "10px",
+								right: "20px",
+								cursor: "pointer",
+							}}
+							onClick={() => {
+								coverImageUploadRef.current.click();
+							}}
+						>
+							<FaEdit color="#5E5E5E" size="1.5rem" />
+						</div>
+					</>
+				)}
+				<div
+					className="position-absolute d-flex justify-content-center align-items-center"
+					style={{ bottom: "-30px", left: "30px" }}
+				>
+					<div className="position-relative">
+						{profileImageLoading ? (
+							<div
+								className="rounded-circle img-thumbnail d-flex justify-content-center align-items-center"
+								style={{
+									width: "140px",
+									height: "140px",
+									bottom: "30px",
+								}}
+							>
+								<div
+									class="spinner-border text-primary"
+									role="status"
+								>
+									<span class="visually-hidden">
+										Loading...
+									</span>
+								</div>
+							</div>
+						) : (
+							<>
+								<img
+									src={profileImage}
+									className="rounded-circle img-thumbnail"
+									style={{
+										bottom: "30px",
+										height: "140px",
+										width: "140px",
+										objectFit: "cover",
+									}}
+									alt="profile_image"
+								/>
+								<input
+									type="file"
+									style={{
+										display: "none",
+									}}
+									ref={profileImageUploadRef}
+									accept="image/*"
+									onChange={(e) => {
+										handleProfileImageUpload(e);
+									}}
+								/>
+								<div
+									className="position-absolute"
+									style={{
+										bottom: "0px",
+										right: "0px",
+										cursor: "pointer",
+									}}
+									onClick={() => {
+										profileImageUploadRef.current.click();
+									}}
+								>
+									<FaEdit color="#5E5E5E" size="1.5rem" />
+								</div>
+							</>
+						)}
+					</div>
+				</div>
+			</div>
+			<div className="container">
 				<hr className="mt-5" />
 				<h2>
 					{userData.firstName} {userData.lastName}
@@ -128,7 +346,7 @@ const Profile = () => {
 						<div className="col-md-6">
 							<label for="Gender">Gender</label>
 							<select
-								className="form-select"
+								className="form-select mt-2"
 								name="Gender"
 								id="Gender"
 								value={gender}
@@ -146,7 +364,9 @@ const Profile = () => {
 								type="date"
 								name="Birthday"
 								id="Birthday"
-								value={birthday}
+								value={birthday.slice(0, 10)}
+								min="1940-01-01"
+								max="2010-01-01"
 								onChange={(e) => setbirthday(e.target.value)}
 							/>
 						</div>
@@ -167,7 +387,7 @@ const Profile = () => {
 						<div className="col-md-3">
 							<label for="State">State</label>
 							<select
-								className="form-select"
+								className="form-select mt-2"
 								name="State"
 								id="State"
 								value={state}
@@ -244,14 +464,16 @@ const Profile = () => {
 							/>
 						</div>
 					</div>
-					<div className="container">
-						<button
-							type="submit"
-							onClick={(e) => userUpdateProfile(e)}
-							class="btn btn-primary me-5"
-						>
-							Save
-						</button>
+					<div className="row mt-4">
+						<div className="col-md-12">
+							<button
+								type="submit"
+								onClick={(e) => userUpdateProfile(e)}
+								class="btn btn-primary float-end"
+							>
+								Save
+							</button>
+						</div>
 					</div>
 				</form>
 			</div>

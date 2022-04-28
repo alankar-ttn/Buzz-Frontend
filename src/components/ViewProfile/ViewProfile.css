@@ -3,7 +3,7 @@
 	flex-direction: column;
 	justify-content: space-between;
 	gap: 30px;
-	height: 100%;
+	height: 80vh;
 	padding: 0.8rem;
 	transition: all 0.2s ease-in-out;
 	margin-bottom: 10px;
@@ -98,4 +98,8 @@
 	font-weight: bold;
 	padding: 8px 8px 8px 8px;
 	margin-right: 15px;
+}
+
+.coverImage {
+	border-radius: 5px;
 }

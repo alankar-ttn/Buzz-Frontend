@@ -6,6 +6,7 @@ import { auth, storage } from "../../../config/Firebase/Firebase";
 import axios from "axios";
 import useAuth from "../../../config/context/AuthContext";
 import { GLOBAL_URL } from "../../../config/global/contant";
+import { toast } from "react-toastify";
 
 const PostForm = () => {
 	const [formOpen, setFormOpen] = useState(false);
@@ -13,7 +14,7 @@ const PostForm = () => {
 	const [images, setImages] = useState([]);
 	const [imageUploading, setImageUploading] = useState(false);
 
-	const { user, getPosts } = useAuth();
+	const { userData, getPosts } = useAuth();
 
 	const imageUploadRef = useRef(null);
 
@@ -61,21 +62,20 @@ const PostForm = () => {
 				}
 			)
 			.then((res) => {
-				console.log(res.data);
 				setCaption("");
 				setImages([]);
 				setFormOpen(false);
 				getPosts();
 			})
 			.catch((err) => {
-				console.log(err);
+				toast.error("Something went wrong");
 			});
 	};
 
 	return (
 		<div className="postform__container" onFocus={() => setFormOpen(true)}>
 			<div className="postform__imageContainer">
-				<img src={user.photoURL} alt="" />
+				<img src={userData.profileImage} alt="" />
 			</div>
 			<div className="postform__inputContainer">
 				<textarea
@@ -115,7 +115,7 @@ const PostForm = () => {
 								className="postform__imageUploadButton"
 							>
 								<FaImages color="green" size="2em" />
-								<p>Photo/Video</p>
+								<p>Photo(s)</p>
 								{imageUploading && (
 									<div class="spinner-border" role="status">
 										<span class="visually-hidden">

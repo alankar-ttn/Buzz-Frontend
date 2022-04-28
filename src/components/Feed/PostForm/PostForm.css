@@ -76,6 +76,7 @@
 
 .postform__inputContainer button:disabled {
     background-color: #d3d9ff;
+    cursor: not-allowed;
 }
 
 .postform__imageUploadContainer .postform__imageUploadButton {
