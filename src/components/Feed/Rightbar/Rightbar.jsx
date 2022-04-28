@@ -11,6 +11,7 @@ import useAuth from "../../../config/context/AuthContext";
 export default function Rightbar() {
 	const [suggestion, setSuggestion] = useState([]);
 	const {userData} = useAuth()
+	const [loading, setLoading] = useState(true)
 
 	useEffect(() => {
 		const getUsers = async () => {
@@ -22,7 +23,8 @@ export default function Rightbar() {
 					},
 				})
 				.then((res) => setSuggestion(res.data))
-				.catch((err) => toast.error("Oops! Something went wrong!"));
+				.catch((err) => toast.error("Oops! Something went wrong!"))
+				.finally(() => setLoading(false))
 		};
 		getUsers();
 	}, []);
@@ -34,7 +36,48 @@ export default function Rightbar() {
 					<div className="rightbarWrapper">
 						<h4 className="rightbarTitle">Friends</h4>
 						<ul className="rightbarContactList" style={{paddingLeft: 0}}>
-						{suggestion.filter(user => userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
+						{loading ? (
+							<div className="d-flex justify-content-center align-items-center">
+								<div class="spinner-border" role="status">
+									<span class="visually-hidden">
+										Loading...
+									</span>
+								</div>
+							</div>
+						) : (
+							suggestion.filter(user => userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
+									<Link to={`/${user._id}/user`}>
+										<li className="rightbarContact my-3 p-3">
+											<div className="rightbarProfileImgContainer">
+												<div>
+													<img
+														className="rightbarProfileImg"
+														src={user.profileImage}
+														alt=""
+													/>
+													<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
+												</div>
+											</div>
+										</li>
+									</Link>
+								))
+						)}
+						</ul>
+					</div>
+				)}
+				<div className="rightbarWrapper2">
+					<h4 className="rightbarTitle">Suggestions</h4>
+					<ul className="rightbarContactList" style={{paddingLeft: 0}}>
+						{loading ? (
+							<div className="d-flex justify-content-center align-items-center">
+								<div class="spinner-border" role="status">
+									<span class="visually-hidden">
+										Loading...
+									</span>
+								</div>
+							</div>
+						) : (
+							suggestion.filter(user => !userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
 								<Link to={`/${user._id}/user`}>
 									<li className="rightbarContact my-3 p-3">
 										<div className="rightbarProfileImgContainer">
@@ -46,37 +89,16 @@ export default function Rightbar() {
 												/>
 												<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
 											</div>
+	
+											<button className="rightbarButton float-end">
+												<AiOutlinePlus className="rightbarIcon" />
+												Friend
+											</button>
 										</div>
 									</li>
 								</Link>
-							))}
-						</ul>
-					</div>
-				)}
-				<div className="rightbarWrapper2">
-					<h4 className="rightbarTitle">Suggestions</h4>
-					<ul className="rightbarContactList" style={{paddingLeft: 0}}>
-						{suggestion.filter(user => !userData?.friends.includes(user._id)).slice(0, 5).map((user) => (
-							<Link to={`/${user._id}/user`}>
-								<li className="rightbarContact my-3 p-3">
-									<div className="rightbarProfileImgContainer">
-										<div>
-											<img
-												className="rightbarProfileImg"
-												src={user.profileImage}
-												alt=""
-											/>
-											<span className="rightbarContactName">{`${user.firstName} ${user.lastName}`}</span>
-										</div>
-
-										<button className="rightbarButton float-end">
-											<AiOutlinePlus className="rightbarIcon" />
-											Friend
-										</button>
-									</div>
-								</li>
-							</Link>
-						))}
+							))
+						)}
 					</ul>
 				</div>
 			</div>
